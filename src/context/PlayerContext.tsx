@@ -63,10 +63,6 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   // Update Media Session API
   useEffect(() => {
     if ('mediaSession' in navigator && currentSong && currentAlbum) {
-      const isIOS =
-        /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
       navigator.mediaSession.metadata = new MediaMetadata({
         title: currentSong.title,
         artist: 'Tate McRae',
@@ -88,15 +84,8 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
       setMediaSessionActionHandler('nexttrack', playNext);
       setMediaSessionActionHandler('previoustrack', playPrevious);
-
-      if (isIOS) {
-        setMediaSessionActionHandler('seekforward', playNext);
-        setMediaSessionActionHandler('seekbackward', playPrevious);
-      } else {
-        setMediaSessionActionHandler('seekforward', null);
-        setMediaSessionActionHandler('seekbackward', null);
-      }
-
+      setMediaSessionActionHandler('seekforward', null);
+      setMediaSessionActionHandler('seekbackward', null);
       setMediaSessionActionHandler('seekto', null);
     }
   }, [currentSong, currentAlbum]);
@@ -108,8 +97,25 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
           ? 'playing'
           : 'paused'
         : 'none';
+
+      if (
+        currentSong &&
+        typeof navigator.mediaSession.setPositionState === 'function' &&
+        Number.isFinite(duration) &&
+        duration > 0
+      ) {
+        try {
+          navigator.mediaSession.setPositionState({
+            duration,
+            playbackRate: 1,
+            position: Math.min(currentTime, duration),
+          });
+        } catch {
+          // Ignore unsupported or invalid state updates.
+        }
+      }
     }
-  }, [currentSong, isPlaying]);
+  }, [currentSong, isPlaying, currentTime, duration]);
 
   // Update audio time
   useEffect(() => {
