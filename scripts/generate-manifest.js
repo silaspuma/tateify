@@ -46,12 +46,6 @@ const getSongsFromFolder = async (albumFolder) => {
   );
   const defaultCover = await resolveCoverPath(albumFolder);
 
-  // Ensure per-song cover output directory exists for single folders
-  if (SINGLE_FOLDERS.has(albumFolder)) {
-    const singlesCoversDir = path.join(process.cwd(), 'public', 'covers', albumFolder);
-    await fs.mkdir(singlesCoversDir, { recursive: true });
-  }
-
   const songs = await Promise.all(
     audioFiles.map(async (file) => {
       const filePath = path.join(audioDir, file);
@@ -72,13 +66,11 @@ const getSongsFromFolder = async (albumFolder) => {
 
         let cover = defaultCover;
         if (SINGLE_FOLDERS.has(albumFolder) && metadata.common.picture && metadata.common.picture.length > 0) {
+          // Extract embedded artwork and convert to data URL
           const pic = metadata.common.picture[0];
-          const ext = pic.format.includes('png') ? 'png' : 'jpg';
-          const safeName = file.replace(/\.[^.]+$/, '').replace(/[^\w\-]/g, '_');
-          const coverFileName = `${safeName}.${ext}`;
-          const coverFilePath = path.join(process.cwd(), 'public', 'covers', albumFolder, coverFileName);
-          await fs.writeFile(coverFilePath, pic.data);
-          cover = `/covers/${albumFolder}/${coverFileName}`;
+          const mimeType = pic.format || 'image/jpeg';
+          const base64Data = Buffer.from(pic.data).toString('base64');
+          cover = `data:${mimeType};base64,${base64Data}`;
         }
 
         return {

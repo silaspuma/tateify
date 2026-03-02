@@ -1,25 +1,35 @@
 # Tateify - Tate McRae Music Streaming App
 
-A modern, minimal, and warm music streaming web application dedicated to Tate McRae's music. Built with Next.js, React, TypeScript, and Tailwind CSS.
+A modern, Spotify-inspired music streaming web application dedicated to Tate McRae's music. Built with Next.js, React, TypeScript, and Tailwind CSS. **Optimized for iPad** with automatic MP3 metadata reading.
 
-## Features
+## ✨ Key Features
 
-- **Spotify-Inspired Layout**: Left sidebar, main content area, and bottom player bar
+- **Automatic MP3 Metadata Reading**: Just drop MP3 files into album folders - the app automatically reads song titles, duration, and track numbers from the file metadata
+- **Spotify-Inspired Design**: Modern, clean interface with large album artwork, smooth animations, and intuitive controls
+- **iPad Optimized**: Designed specifically for iPad with larger touch targets, optimal spacing, and beautiful typography
 - **Full Playback Controls**: Play, pause, next, previous, seek, and volume control
-- **Media Session API**: Hardware keys and OS media controls support
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Media Session API**: Hardware media key support and OS-level controls
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 - **Global Player State**: Music continues playing when switching albums
-- **Modern UI**: Warm color palette with soft shadows and subtle animations
-- **Album Navigation**: Browse through different albums and singles
-- **Real-time Progress**: Live progress bar with seek functionality
-- **Auto-play**: Automatically plays next track when song ends
+- **Modern UI**: Warm color palette with glassmorphism effects and smooth transitions
 
-## Color Palette
+## 🎨 Design Philosophy
 
-- Background: `#ffeac6`
-- Accent: `#f19e31`
-- Text: `#2a2a2a`
-- Hover Accent: `#f4ad4f`
+This app takes inspiration from Spotify's clean, modern interface while maintaining a unique warm aesthetic:
+- **Background**: Warm cream (#ffeac6) instead of dark theme
+- **Accent**: Vibrant orange (#f19e31) for interactive elements
+- **Typography**: Large, bold text optimized for iPad viewing
+- **Layout**: Three-column layout (sidebar, content, player bar)
+- **Glassmorphism**: Frosted glass effects with backdrop blur
+- **Touch-Friendly**: Larger buttons and controls perfect for iPad
+
+## 📱 iPad Optimization
+
+- **Large Touch Targets**: 44x44pt minimum for all interactive elements
+- **Optimal Text Size**: 16-20px for body text, larger for headings
+- **Spacious Layout**: Generous padding and margins
+- **Smooth Scrolling**: Optimized for touch interactions
+- **Responsive**: Works in both portrait and landscape orientations
 
 ## Tech Stack
 

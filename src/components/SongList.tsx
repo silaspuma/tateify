@@ -16,6 +16,7 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
   const isDarkTheme = albumTheme !== 'default';
   const { playSong, currentSong, isPlaying, togglePlayPause } = usePlayer();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [selectedSongIndex, setSelectedSongIndex] = useState<number | null>(null);
   const [songs, setSongs] = useState<Song[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -24,11 +25,11 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
       setLoading(true);
       try {
         if (album.id === 'all-songs') {
-          const response = await fetch('/api/songs');
+          const response = await fetch('/api/songs', { cache: 'no-store' });
           const data = await response.json();
           setSongs(data.songs || []);
         } else {
-          const response = await fetch(`/api/songs?folder=${album.folder}`);
+          const response = await fetch(`/api/songs?folder=${album.folder}`, { cache: 'no-store' });
           const data = await response.json();
           setSongs(data.songs || []);
         }
@@ -49,6 +50,7 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
     } else {
       playSong(song, album, songs, index);
     }
+    setSelectedSongIndex(index);
   };
 
   const handlePlayAlbum = () => {
@@ -98,9 +100,13 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
         }
       >
         <img
-          src={album.cover}
-          alt={album.name}
-          className="w-64 h-64 rounded-2xl shadow-2xl object-cover flex-shrink-0 ring-1 ring-accent/50"
+          src={album.id === 'singles' && selectedSongIndex !== null && songs[selectedSongIndex]
+            ? songs[selectedSongIndex].cover
+            : album.cover}
+          alt={album.id === 'singles' && selectedSongIndex !== null && songs[selectedSongIndex]
+            ? songs[selectedSongIndex].title
+            : album.name}
+          className="w-64 h-64 rounded-2xl shadow-2xl object-cover flex-shrink-0 ring-1 ring-accent/50 transition-all duration-300"
         />
         <div className="flex flex-col justify-end pb-2">
           <p
@@ -112,16 +118,18 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
                 : 'text-sm font-bold uppercase tracking-wider mb-3'
             }
           >
-            Album
+            {album.id === 'singles' && selectedSongIndex !== null ? 'Single' : 'Album'}
           </p>
           <h1
             className={
               isDarkTheme
-                ? 'text-7xl font-black mb-2 leading-none text-white'
-                : 'text-7xl font-black mb-2 leading-none'
+                ? 'text-7xl font-black mb-2 leading-none text-white transition-all duration-300'
+                : 'text-7xl font-black mb-2 leading-none transition-all duration-300'
             }
           >
-            {album.name}
+            {album.id === 'singles' && selectedSongIndex !== null && songs[selectedSongIndex]
+              ? songs[selectedSongIndex].title
+              : album.name}
           </h1>
         </div>
       </div>

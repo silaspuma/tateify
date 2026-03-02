@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server';
 import manifest from '@/data/manifest.json';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface ApiSong {
   title: string;
   file: string;
@@ -12,11 +15,12 @@ interface ApiSong {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const albumFolder = searchParams.get('folder');
+  const noStoreHeaders = { 'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate' };
 
   try {
     if (albumFolder) {
       const songs = manifest.songsByFolder[albumFolder as keyof typeof manifest.songsByFolder] || [];
-      return NextResponse.json({ songs });
+      return NextResponse.json({ songs }, { headers: noStoreHeaders });
     }
 
     // Return all songs from all folders
@@ -24,12 +28,12 @@ export async function GET(request: Request) {
       .flat()
       .sort((a: any, b: any) => a.title.localeCompare(b.title));
 
-    return NextResponse.json({ songs });
+    return NextResponse.json({ songs }, { headers: noStoreHeaders });
   } catch (error) {
     console.error('Error reading songs:', error);
     return NextResponse.json({ 
       error: 'Failed to read songs',
       songs: [] 
-    }, { status: 500 });
+    }, { status: 500, headers: noStoreHeaders });
   }
 }

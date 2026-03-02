@@ -63,12 +63,22 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   // Update Media Session API
   useEffect(() => {
     if ('mediaSession' in navigator && currentSong && currentAlbum) {
+      // Determine image type - support both data URLs and file paths
+      let imageType = 'image/jpeg';
+      if (currentSong.cover.startsWith('data:')) {
+        // Extract type from data URL
+        const typeMatch = currentSong.cover.match(/^data:([^;]+)/);
+        imageType = typeMatch ? typeMatch[1] : 'image/jpeg';
+      } else if (currentSong.cover.toLowerCase().endsWith('.png')) {
+        imageType = 'image/png';
+      }
+
       navigator.mediaSession.metadata = new MediaMetadata({
         title: currentSong.title,
         artist: 'Tate McRae',
         album: currentAlbum.name,
         artwork: [
-          { src: currentSong.cover, sizes: '512x512', type: 'image/jpeg' },
+          { src: currentSong.cover, sizes: '512x512', type: imageType },
         ],
       });
 
