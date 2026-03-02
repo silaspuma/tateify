@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '@/components/Sidebar';
 import SongList from '@/components/SongList';
+import RecentlyPlayed from '@/components/RecentlyPlayed';
 import PlayerBar from '@/components/PlayerBar';
 import Loader from '@/components/Loader';
 import { albums } from '@/data/albums';
@@ -11,6 +12,7 @@ import { Menu, X } from 'lucide-react';
 
 export default function Home() {
   const [selectedAlbumId, setSelectedAlbumId] = useState(albums[0].id);
+  const [activeView, setActiveView] = useState<'recently-played' | 'album'>('album');
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { currentSong } = usePlayer();
@@ -47,8 +49,14 @@ export default function Home() {
         >
           <Sidebar
             selectedAlbumId={selectedAlbumId}
+            activeView={activeView}
+            onSelectRecentlyPlayed={() => {
+              setActiveView('recently-played');
+              setIsMobileMenuOpen(false);
+            }}
             onSelectAlbum={(id) => {
               setSelectedAlbumId(id);
+              setActiveView('album');
               setIsMobileMenuOpen(false);
             }}
           />
@@ -84,7 +92,11 @@ export default function Home() {
           )}
 
           <div className="relative z-10 h-full overflow-y-auto">
-            <SongList album={selectedAlbum} />
+            {activeView === 'recently-played' ? (
+              <RecentlyPlayed />
+            ) : (
+              <SongList album={selectedAlbum} />
+            )}
           </div>
         </div>
       </div>

@@ -52,7 +52,11 @@ const SongList: React.FC<SongListProps> = ({ album }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
-        <div className="animate-spin rounded-full h-16 w-16 border-4 border-accent border-t-transparent"></div>
+        <img
+          src="/loader.gif"
+          alt="Loading..."
+          className="w-16 h-16 opacity-90"
+        />
       </div>
     );
   }
@@ -70,27 +74,17 @@ const SongList: React.FC<SongListProps> = ({ album }) => {
           <p className="text-sm font-bold uppercase tracking-wider mb-3">
             Album
           </p>
-          <h1 className="text-7xl font-black mb-6 leading-none">{album.name}</h1>
-          <div className="flex items-center gap-2 text-base">
-            <span className="font-semibold">Tate McRae</span>
-            <span className="text-text/40">•</span>
-            <span className="text-text/70">
-              {songs.length} {songs.length === 1 ? 'song' : 'songs'}
-            </span>
-          </div>
+          <h1 className="text-7xl font-black mb-2 leading-none">{album.name}</h1>
         </div>
       </div>
 
       {/* Play Button and Controls */}
-      <div className="px-10 py-8 flex items-center gap-8">
+      <div className="px-10 py-8 flex items-center">
         <button
           onClick={handlePlayAlbum}
           className="w-20 h-20 rounded-full bg-accent hover:bg-accent-light hover:scale-105 flex items-center justify-center shadow-2xl group"
         >
           <Play size={36} fill="white" className="text-white ml-1" strokeWidth={0} />
-        </button>
-        <button className="text-text/60 hover:text-text">
-          <Heart size={40} strokeWidth={1.5} />
         </button>
       </div>
 
@@ -157,11 +151,5 @@ const SongList: React.FC<SongListProps> = ({ album }) => {
     </div>
   );
 };
-
-const Heart = ({ size, strokeWidth }: { size: number; strokeWidth: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth}>
-    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-  </svg>
-);
 
 export default SongList;

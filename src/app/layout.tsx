@@ -1,13 +1,17 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { PlayerProvider } from '@/context/PlayerContext';
 
-const inter = Inter({ subsets: ['latin'] });
+const horizon = localFont({
+  src: '../../horizon.ttf',
+  variable: '--font-horizon',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Tateify - Tate McRae Music Streaming',
-  description: 'Stream Tate McRae\'s music collection',
+  title: 'TATEIFY',
+  description: 'Stream every song.',
 };
 
 export default function RootLayout({
@@ -17,7 +21,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        <link rel="preload" href="/loader.gif" as="image" type="image/gif" />
+      </head>
+      <body className={horizon.className}>
         <PlayerProvider>
           {children}
         </PlayerProvider>

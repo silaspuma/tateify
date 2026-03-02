@@ -6,6 +6,7 @@ import { Song, Album } from '@/data/albums';
 interface PlayerContextType {
   currentSong: Song | null;
   currentAlbum: Album | null;
+  recentSongs: { song: Song; album: Album }[];
   isPlaying: boolean;
   currentTime: number;
   duration: number;
@@ -38,6 +39,7 @@ interface PlayerProviderProps {
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
   const [currentAlbum, setCurrentAlbum] = useState<Album | null>(null);
+  const [recentSongs, setRecentSongs] = useState<{ song: Song; album: Album }[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -99,6 +101,11 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     setQueue(songQueue);
     setCurrentIndex(index);
     setIsPlaying(true);
+
+    setRecentSongs((previous) => {
+      const deduped = previous.filter((item) => item.song.file !== song.file);
+      return [{ song, album }, ...deduped].slice(0, 20);
+    });
   };
 
   useEffect(() => {
@@ -164,6 +171,7 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
       value={{
         currentSong,
         currentAlbum,
+        recentSongs,
         isPlaying,
         currentTime,
         duration,
