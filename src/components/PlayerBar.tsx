@@ -4,7 +4,15 @@ import React, { useRef } from 'react';
 import { usePlayer } from '@/context/PlayerContext';
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
 
-const PlayerBar: React.FC = () => {
+interface PlayerBarProps {
+  albumTheme?: 'default' | 'so-close' | 'i-used';
+}
+
+const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
+  const isSoCloseToWhatTheme = albumTheme === 'so-close';
+  const isIUsedTheme = albumTheme === 'i-used';
+  const isDarkTheme = albumTheme !== 'default';
+
   const {
     currentSong,
     isPlaying,
@@ -45,7 +53,15 @@ const PlayerBar: React.FC = () => {
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-black/30 backdrop-blur-2xl border-t border-black/20 px-6 py-4 shadow-2xl">
+    <div
+      className={
+        isSoCloseToWhatTheme
+          ? 'fixed bottom-0 left-0 right-0 bg-black/65 backdrop-blur-2xl border-t border-white/10 px-6 py-4 shadow-2xl'
+          : isIUsedTheme
+            ? 'fixed bottom-0 left-0 right-0 bg-black/60 backdrop-blur-2xl border-t border-accent/30 px-6 py-4 shadow-2xl'
+          : 'fixed bottom-0 left-0 right-0 bg-black/30 backdrop-blur-2xl border-t border-black/20 px-6 py-4 shadow-2xl'
+      }
+    >
       <div className="flex items-center justify-between gap-4">
         {/* Left: Song Info */}
         <div className="flex items-center gap-4 w-1/4 min-w-[280px]">
@@ -55,8 +71,16 @@ const PlayerBar: React.FC = () => {
             className="w-20 h-20 rounded-lg shadow-xl object-cover"
           />
           <div className="min-w-0 flex-1">
-            <p className="font-bold text-lg text-text truncate">{currentSong.title}</p>
-            <p className="text-text/60 text-sm">Tate McRae</p>
+            <p
+              className={
+                isDarkTheme
+                  ? 'font-bold text-lg text-white truncate'
+                  : 'font-bold text-lg text-text truncate'
+              }
+            >
+              {currentSong.title}
+            </p>
+            <p className={isDarkTheme ? 'text-white/60 text-sm' : 'text-text/60 text-sm'}>Tate McRae</p>
           </div>
         </div>
 
@@ -66,7 +90,11 @@ const PlayerBar: React.FC = () => {
           <div className="flex items-center gap-6 mb-3">
             <button
               onClick={playPrevious}
-              className="text-text/70 hover:text-text hover:scale-110 transition-all"
+              className={
+                isDarkTheme
+                  ? 'text-white/70 hover:text-white hover:scale-110 transition-all'
+                  : 'text-text/70 hover:text-text hover:scale-110 transition-all'
+              }
             >
               <SkipBack size={32} fill="currentColor" />
             </button>
@@ -84,7 +112,11 @@ const PlayerBar: React.FC = () => {
 
             <button
               onClick={playNext}
-              className="text-text/70 hover:text-text hover:scale-110 transition-all"
+              className={
+                isDarkTheme
+                  ? 'text-white/70 hover:text-white hover:scale-110 transition-all'
+                  : 'text-text/70 hover:text-text hover:scale-110 transition-all'
+              }
             >
               <SkipForward size={32} fill="currentColor" />
             </button>
@@ -92,13 +124,25 @@ const PlayerBar: React.FC = () => {
 
           {/* Progress Bar */}
           <div className="flex items-center gap-3 w-full">
-            <span className="text-sm text-text/60 min-w-[48px] text-right font-medium">
+            <span
+              className={
+                isDarkTheme
+                  ? 'text-sm text-white/60 min-w-[48px] text-right font-medium'
+                  : 'text-sm text-text/60 min-w-[48px] text-right font-medium'
+              }
+            >
               {formatTime(currentTime)}
             </span>
             <div
               ref={progressBarRef}
               onClick={handleProgressClick}
-              className="flex-1 h-2 bg-white/20 rounded-full cursor-pointer group relative overflow-hidden"
+              className={
+                isSoCloseToWhatTheme
+                  ? 'flex-1 h-2 bg-white/25 rounded-full cursor-pointer group relative overflow-hidden'
+                  : isIUsedTheme
+                    ? 'flex-1 h-2 bg-white/30 rounded-full cursor-pointer group relative overflow-hidden'
+                  : 'flex-1 h-2 bg-white/20 rounded-full cursor-pointer group relative overflow-hidden'
+              }
             >
               <div
                 className="h-full bg-accent rounded-full relative transition-all"
@@ -107,7 +151,7 @@ const PlayerBar: React.FC = () => {
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full opacity-0 group-hover:opacity-100 shadow-lg" />
               </div>
             </div>
-            <span className="text-sm text-text/60 min-w-[48px] font-medium">
+            <span className={isDarkTheme ? 'text-sm text-white/60 min-w-[48px] font-medium' : 'text-sm text-text/60 min-w-[48px] font-medium'}>
               {formatTime(duration)}
             </span>
           </div>
@@ -116,9 +160,9 @@ const PlayerBar: React.FC = () => {
         {/* Right: Volume Control */}
         <div className="flex items-center justify-end gap-3 w-1/4 min-w-[200px]">
           {volume === 0 ? (
-            <VolumeX size={24} className="text-text/70" />
+            <VolumeX size={24} className={isDarkTheme ? 'text-white/70' : 'text-text/70'} />
           ) : (
-            <Volume2 size={24} className="text-text/70" />
+            <Volume2 size={24} className={isDarkTheme ? 'text-white/70' : 'text-text/70'} />
           )}
           <input
             type="range"

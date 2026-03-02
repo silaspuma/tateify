@@ -4,22 +4,28 @@ import React from 'react';
 import { usePlayer } from '@/context/PlayerContext';
 import { Clock3, Play, Pause } from 'lucide-react';
 
-const RecentlyPlayed: React.FC = () => {
+interface RecentlyPlayedProps {
+  albumTheme?: 'default' | 'so-close' | 'i-used';
+}
+
+const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ albumTheme = 'default' }) => {
+  const isDarkTheme = albumTheme !== 'default';
+
   const { recentSongs, currentSong, isPlaying, playSong, togglePlayPause } = usePlayer();
 
   return (
     <div className="h-full flex flex-col">
-      <div className="p-10 pb-6 bg-gradient-to-b from-accent/20 to-transparent">
-        <div className="flex items-center gap-3 text-text/80 mb-4">
+      <div className={isDarkTheme ? 'p-10 pb-6 bg-gradient-to-b from-black/60 via-accent/10 to-transparent' : 'p-10 pb-6 bg-gradient-to-b from-accent/20 to-transparent'}>
+        <div className={isDarkTheme ? 'flex items-center gap-3 text-white/80 mb-4' : 'flex items-center gap-3 text-text/80 mb-4'}>
           <Clock3 size={24} strokeWidth={2} />
           <span className="text-base font-semibold uppercase tracking-wider">Page</span>
         </div>
-        <h1 className="text-6xl font-black leading-none">Recently Played</h1>
+        <h1 className={isDarkTheme ? 'text-6xl font-black leading-none text-white' : 'text-6xl font-black leading-none'}>Recently Played</h1>
       </div>
 
       <div className="flex-1 overflow-y-auto px-10 pb-32">
         {recentSongs.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-text/60 text-xl font-medium">
+          <div className={isDarkTheme ? 'h-full flex items-center justify-center text-white/60 text-xl font-medium' : 'h-full flex items-center justify-center text-text/60 text-xl font-medium'}>
             Play a song to see it here.
           </div>
         ) : (
@@ -39,7 +45,7 @@ const RecentlyPlayed: React.FC = () => {
                   }}
                   className={`
                     w-full grid grid-cols-[48px_1fr_auto] items-center gap-4 px-6 py-4 rounded-xl text-left
-                    ${isCurrentSong ? 'bg-white/20' : 'hover:bg-white/10'}
+                    ${isCurrentSong ? (isDarkTheme ? 'bg-white/15' : 'bg-white/20') : (isDarkTheme ? 'hover:bg-white/10' : 'hover:bg-white/10')}
                   `}
                 >
                   <div className="flex items-center justify-center text-accent">
@@ -50,12 +56,12 @@ const RecentlyPlayed: React.FC = () => {
                     )}
                   </div>
                   <div className="min-w-0">
-                    <div className={`text-lg font-semibold truncate ${isCurrentSong ? 'text-accent' : 'text-text'}`}>
+                    <div className={`text-lg font-semibold truncate ${isCurrentSong ? 'text-accent' : (isDarkTheme ? 'text-white' : 'text-text')}`}>
                       {song.title}
                     </div>
-                    <div className="text-sm text-text/60 truncate">{album.name}</div>
+                    <div className={isDarkTheme ? 'text-sm text-white/60 truncate' : 'text-sm text-text/60 truncate'}>{album.name}</div>
                   </div>
-                  <div className="text-text/60 text-sm">{song.duration}</div>
+                  <div className={isDarkTheme ? 'text-white/60 text-sm' : 'text-text/60 text-sm'}>{song.duration}</div>
                 </button>
               );
             })}

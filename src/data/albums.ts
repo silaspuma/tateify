@@ -15,16 +15,16 @@ export interface Album {
 // Album configuration - songs will be loaded dynamically from MP3 files
 export const albums: Album[] = [
   {
-    id: 'think-later',
-    name: 'THINK LATER',
-    cover: '/covers/think-later.jpg',
-    folder: 'think-later',
-  },
-  {
     id: 'so-close-to-what',
     name: 'so close to what???',
     cover: '/covers/so-close-to-what.jpg',
     folder: 'so-close-to-what',
+  },
+  {
+    id: 'think-later',
+    name: 'THINK LATER',
+    cover: '/covers/think-later.jpg',
+    folder: 'think-later',
   },
   {
     id: 'i-used-to-think-i-could-fly',
@@ -34,7 +34,7 @@ export const albums: Album[] = [
   },
   {
     id: 'singles',
-    name: 'Singles',
+    name: 'Singles & EPs',
     cover: '/covers/singles.jpg',
     folder: 'singles',
   },

@@ -18,6 +18,15 @@ export default function Home() {
   const { currentSong } = usePlayer();
 
   const selectedAlbum = albums.find((album) => album.id === selectedAlbumId) || albums[0];
+  const albumTheme =
+    selectedAlbum.id === 'so-close-to-what'
+      ? 'so-close'
+      : selectedAlbum.id === 'i-used-to-think-i-could-fly'
+        ? 'i-used'
+        : 'default';
+  const isSoCloseToWhatTheme = albumTheme === 'so-close';
+  const isIUsedTheme = albumTheme === 'i-used';
+  const isDarkTheme = albumTheme !== 'default';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,14 +37,24 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="h-screen flex flex-col overflow-hidden">
+    <main
+      className={
+        isDarkTheme
+          ? 'h-screen flex flex-col overflow-hidden bg-black text-white'
+          : 'h-screen flex flex-col overflow-hidden'
+      }
+    >
       <Loader isLoading={isLoading} />
 
       <div className="flex flex-1 overflow-hidden">
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden fixed top-6 left-6 z-50 bg-black/30 backdrop-blur-xl text-white p-3 rounded-full shadow-xl border border-white/10"
+          className={
+            isDarkTheme
+              ? 'lg:hidden fixed top-6 left-6 z-50 bg-black/45 backdrop-blur-xl text-white p-3 rounded-full shadow-xl border border-white/20'
+              : 'lg:hidden fixed top-6 left-6 z-50 bg-black/30 backdrop-blur-xl text-white p-3 rounded-full shadow-xl border border-white/10'
+          }
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
@@ -50,6 +69,8 @@ export default function Home() {
           <Sidebar
             selectedAlbumId={selectedAlbumId}
             activeView={activeView}
+            albumTheme={albumTheme}
+            isDarkTheme={isDarkTheme}
             onSelectRecentlyPlayed={() => {
               setActiveView('recently-played');
               setIsMobileMenuOpen(false);
@@ -65,7 +86,11 @@ export default function Home() {
         {/* Overlay for mobile menu */}
         {isMobileMenuOpen && (
           <div
-            className="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-30"
+            className={
+              isDarkTheme
+                ? 'lg:hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-30'
+                : 'lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-30'
+            }
             onClick={() => setIsMobileMenuOpen(false)}
           />
         )}
@@ -73,9 +98,45 @@ export default function Home() {
         {/* Main Content */}
         <div className="flex-1 overflow-hidden relative">
           {/* Gradient Background */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-b from-accent/10 via-background to-background"
+          <div
+            className={
+              isSoCloseToWhatTheme
+                ? 'absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black'
+                : isIUsedTheme
+                  ? 'absolute inset-0 bg-gradient-to-b from-black via-accent/10 to-black'
+                : 'absolute inset-0 bg-gradient-to-b from-accent/10 via-background to-background'
+            }
           />
+
+          {isSoCloseToWhatTheme && (
+            <>
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${selectedAlbum.cover})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center 18%',
+                  opacity: 0.33,
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/65 to-black" />
+            </>
+          )}
+
+          {isIUsedTheme && (
+            <>
+              <div
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `url(${selectedAlbum.cover})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center 22%',
+                  opacity: 0.42,
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-accent/20 to-black/85" />
+            </>
+          )}
           
           {/* Optional: Blurred background when playing */}
           {currentSong && (
@@ -93,16 +154,16 @@ export default function Home() {
 
           <div className="relative z-10 h-full overflow-y-auto">
             {activeView === 'recently-played' ? (
-              <RecentlyPlayed />
+              <RecentlyPlayed albumTheme={albumTheme} />
             ) : (
-              <SongList album={selectedAlbum} />
+              <SongList album={selectedAlbum} albumTheme={albumTheme} />
             )}
           </div>
         </div>
       </div>
 
       {/* Player Bar */}
-      <PlayerBar />
+      <PlayerBar albumTheme={albumTheme} />
     </main>
   );
 }

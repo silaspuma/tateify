@@ -8,6 +8,8 @@ interface SidebarProps {
   onSelectAlbum: (albumId: string) => void;
   activeView: 'recently-played' | 'album';
   onSelectRecentlyPlayed: () => void;
+  albumTheme?: 'default' | 'so-close' | 'i-used';
+  isDarkTheme?: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -15,14 +17,25 @@ const Sidebar: React.FC<SidebarProps> = ({
   onSelectAlbum,
   activeView,
   onSelectRecentlyPlayed,
+  albumTheme = 'default',
+  isDarkTheme = false,
 }) => {
+  const isSoCloseToWhatTheme = albumTheme === 'so-close';
+  const isIUsedTheme = albumTheme === 'i-used';
+
   return (
-    <div className="w-80 bg-black/20 backdrop-blur-xl h-full flex flex-col border-r border-black/10">
+    <div
+      className={
+        isDarkTheme
+          ? 'w-80 bg-black/40 backdrop-blur-xl h-full flex flex-col border-r border-white/10'
+          : 'w-80 bg-black/20 backdrop-blur-xl h-full flex flex-col border-r border-black/10'
+      }
+    >
       {/* Logo */}
       <div className="p-8 pb-6">
         <button onClick={onSelectRecentlyPlayed} className="block w-full text-left">
           <img
-            src="/logo.png"
+            src={isDarkTheme ? '/logo-white.png' : '/logo.png'}
             alt="Tateify"
             className="w-full h-auto max-w-[260px] object-contain"
           />
@@ -40,8 +53,16 @@ const Sidebar: React.FC<SidebarProps> = ({
                 w-full flex items-center gap-4 px-4 py-3 rounded-lg group
                 ${
                   activeView === 'album' && selectedAlbumId === album.id
-                    ? 'bg-accent/20 text-text'
-                    : 'hover:bg-white/10 text-text/80'
+                    ? isSoCloseToWhatTheme
+                      ? 'bg-white/12 text-white'
+                      : isIUsedTheme
+                        ? 'bg-accent/20 text-white'
+                      : 'bg-accent/20 text-text'
+                    : isSoCloseToWhatTheme
+                      ? 'hover:bg-white/8 text-white/75'
+                      : isIUsedTheme
+                        ? 'hover:bg-white/10 text-white/80'
+                      : 'hover:bg-white/10 text-text/80'
                 }
               `}
             >
