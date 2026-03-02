@@ -6,22 +6,42 @@ import SongList from '@/components/SongList';
 import RecentlyPlayed from '@/components/RecentlyPlayed';
 import PlayerBar from '@/components/PlayerBar';
 import Loader from '@/components/Loader';
-import { albums } from '@/data/albums';
+import { Album } from '@/data/albums';
 import { usePlayer } from '@/context/PlayerContext';
 import { Menu, X } from 'lucide-react';
 
 export default function Home() {
-  const [selectedAlbumId, setSelectedAlbumId] = useState(albums[0].id);
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [selectedAlbumId, setSelectedAlbumId] = useState('all-songs');
   const [activeView, setActiveView] = useState<'recently-played' | 'album'>('album');
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { currentSong } = usePlayer();
 
-  const selectedAlbum = albums.find((album) => album.id === selectedAlbumId) || albums[0];
+    useEffect(() => {
+      const fetchAlbums = async () => {
+        try {
+          const response = await fetch('/api/albums');
+          const data = await response.json();
+          const fetchedAlbums = data.albums || [];
+          setAlbums(fetchedAlbums);
+          if (fetchedAlbums.length > 0 && !selectedAlbumId) {
+            setSelectedAlbumId(fetchedAlbums[0].id);
+          }
+        } catch (error) {
+          console.error('Error fetching albums:', error);
+          setAlbums([]);
+        }
+      };
+
+      fetchAlbums();
+    }, []);
+
+      const selectedAlbum = albums.find((album) => album.id === selectedAlbumId);
   const albumTheme =
-    selectedAlbum.id === 'so-close-to-what'
+        selectedAlbum?.id === 'so-close-to-what'
       ? 'so-close'
-      : selectedAlbum.id === 'think-later'
+          : selectedAlbum?.id === 'think-later'
         ? 'think-later'
         : 'default';
   const isSoCloseToWhatTheme = albumTheme === 'so-close';
@@ -114,7 +134,7 @@ export default function Home() {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `url(${selectedAlbum.cover})`,
+                backgroundImage: selectedAlbum ? `url(${selectedAlbum.cover})` : 'none',
               backgroundSize: 'cover',
               backgroundPosition: isThinkLaterTheme ? 'center 28%' : isSoCloseToWhatTheme ? 'center 18%' : 'center',
               opacity: isThinkLaterTheme ? 0.62 : isSoCloseToWhatTheme ? 0.4 : 0.34,
@@ -147,8 +167,16 @@ export default function Home() {
           <div className="relative z-10">
             {activeView === 'recently-played' ? (
               <RecentlyPlayed albumTheme={albumTheme} />
+              ) : selectedAlbum ? (
+                <SongList album={selectedAlbum} albumTheme={albumTheme} />
             ) : (
-              <SongList album={selectedAlbum} albumTheme={albumTheme} />
+                <div className="flex items-center justify-center h-full p-8">
+                  <img
+                    src="/loader.gif"
+                    alt="Loading..."
+                    className="w-16 h-16 opacity-90"
+                  />
+                </div>
             )}
           </div>
         </div>

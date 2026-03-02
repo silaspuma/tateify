@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { albums } from '@/data/albums';
+import React, { useState, useEffect } from 'react';
+import { Album } from '@/data/albums';
 
 interface SidebarProps {
   selectedAlbumId: string;
@@ -20,8 +20,27 @@ const Sidebar: React.FC<SidebarProps> = ({
   albumTheme = 'default',
   isDarkTheme = false,
 }) => {
+    const [albums, setAlbums] = useState<Album[]>([]);
+    const [loading, setLoading] = useState(true);
   const isSoCloseToWhatTheme = albumTheme === 'so-close';
   const isThinkLaterTheme = albumTheme === 'think-later';
+
+    useEffect(() => {
+      const fetchAlbums = async () => {
+        try {
+          const response = await fetch('/api/albums');
+          const data = await response.json();
+          setAlbums(data.albums || []);
+        } catch (error) {
+          console.error('Error fetching albums:', error);
+          setAlbums([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchAlbums();
+    }, []);
 
   return (
     <div
@@ -44,6 +63,15 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Albums Section */}
       <div className="flex-1 overflow-y-auto px-6 pb-6">
+          {loading ? (
+            <div className="flex items-center justify-center p-8">
+              <img
+                src="/loader.gif"
+                alt="Loading..."
+                className="w-12 h-12 opacity-90"
+              />
+            </div>
+          ) : (
         <div className="space-y-1">
           {albums.map((album) => (
             <button
@@ -77,6 +105,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             </button>
           ))}
         </div>
+        )}
       </div>
     </div>
   );
