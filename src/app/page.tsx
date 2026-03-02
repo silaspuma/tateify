@@ -97,7 +97,10 @@ export default function Home() {
 
         {/* Main Content */}
         <div className="flex-1 overflow-hidden relative">
-          {/* Gradient Background */}
+          {/* Base album mood gradient (applies to all pages) */}
+          <div className="absolute inset-0 bg-gradient-to-b from-accent/22 via-accent/10 to-background/55" />
+
+          {/* Album-specific base gradient */}
           <div
             className={
               isSoCloseToWhatTheme
@@ -108,35 +111,24 @@ export default function Home() {
             }
           />
 
-          {isSoCloseToWhatTheme && (
-            <>
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `url(${selectedAlbum.cover})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center 18%',
-                  opacity: 0.33,
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/65 to-black" />
-            </>
-          )}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${selectedAlbum.cover})`,
+              backgroundSize: 'cover',
+              backgroundPosition: isIUsedTheme ? 'center 28%' : isSoCloseToWhatTheme ? 'center 18%' : 'center',
+              opacity: isIUsedTheme ? 0.62 : isSoCloseToWhatTheme ? 0.4 : 0.34,
+              filter: isIUsedTheme ? 'saturate(1.25) contrast(1.08)' : 'saturate(1.06)',
+            }}
+          />
 
-          {isIUsedTheme && (
-            <>
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `url(${selectedAlbum.cover})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center 22%',
-                  opacity: 0.42,
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-accent/20 to-black/85" />
-            </>
-          )}
+          <div
+            className={
+              isDarkTheme
+                ? 'absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-black/78'
+                : 'absolute inset-0 bg-gradient-to-b from-background/55 via-background/75 to-background/90'
+            }
+          />
           
           {/* Optional: Blurred background when playing */}
           {currentSong && (
