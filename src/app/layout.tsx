@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import { PlayerProvider } from '@/context/PlayerContext';
+import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 
 const horizon = localFont({
   src: '../../horizon.ttf',
@@ -33,6 +34,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#f19e31" />
       </head>
       <body className={horizon.className}>
+        <ServiceWorkerRegistration />
         <PlayerProvider>
           {children}
         </PlayerProvider>
