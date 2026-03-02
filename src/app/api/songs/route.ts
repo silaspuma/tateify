@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
   try {
     if (albumFolder) {
-      const songs = manifest.songsByFolder[albumFolder] || [];
+      const songs = manifest.songsByFolder[albumFolder as keyof typeof manifest.songsByFolder] || [];
       return NextResponse.json({ songs });
     }
 
