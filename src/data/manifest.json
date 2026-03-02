@@ -1,0 +1,479 @@
+{
+  "albums": [
+    {
+      "id": "all-songs",
+      "name": "All Songs",
+      "cover": "/covers/all-songs.png",
+      "folder": "all-songs"
+    },
+    {
+      "id": "so-close-to-what",
+      "name": "so close to what???",
+      "cover": "/covers/so-close-to-what.jpg",
+      "folder": "so-close-to-what"
+    },
+    {
+      "id": "think-later",
+      "name": "think later",
+      "cover": "/covers/think-later.jpg",
+      "folder": "think-later"
+    },
+    {
+      "id": "i-used-to-think-i-could-fly",
+      "name": "i used to think i could fly",
+      "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+      "folder": "i-used-to-think-i-could-fly"
+    },
+    {
+      "id": "singles",
+      "name": "singles & eps",
+      "cover": "/covers/singles.jpg",
+      "folder": "singles"
+    }
+  ],
+  "songsByFolder": {
+    "i-used-to-think-i-could-fly": [
+      {
+        "title": "chaotic",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195571244_01 - Tate McRae - chaotic.mp3",
+        "duration": "2:58",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "she's all i wanna be",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195604418_01 - Tate McRae - she's all i wanna be.mp3",
+        "duration": "3:26",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "what would you do?",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195381842_01 - Tate McRae - what would you do.mp3",
+        "duration": "2:46",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "don't come back",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195388113_02 - Tate McRae - don't come back.mp3",
+        "duration": "2:32",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 2
+      },
+      {
+        "title": "i'm so gone",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195384238_03 - Tate McRae - i'm so gone.mp3",
+        "duration": "2:26",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 3
+      },
+      {
+        "title": "hate myself",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195369096_06 - Tate McRae - hate myself.mp3",
+        "duration": "2:53",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 6
+      },
+      {
+        "title": "boy x",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195569300_09 - Tate McRae - boy x.mp3",
+        "duration": "3:46",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 9
+      },
+      {
+        "title": "you're so cool",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768196000737_10 - Tate McRae - you're so cool.mp3",
+        "duration": "2:50",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 10
+      },
+      {
+        "title": "feel like shit",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768196037707_11 - Tate McRae - feel like shit.mp3",
+        "duration": "3:23",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 11
+      },
+      {
+        "title": "go away",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195573154_12 - Tate McRae - go away.mp3",
+        "duration": "3:33",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 12
+      },
+      {
+        "title": "i still say goodnight",
+        "file": "/audio/i-used-to-think-i-could-fly/songs_1768195297665_13 - Tate McRae - i still say goodnight.mp3",
+        "duration": "3:08",
+        "cover": "/covers/i-used-to-think-i-could-fly.jpg",
+        "trackNumber": 13
+      }
+    ],
+    "singles": [
+      {
+        "title": "all my friends are fake",
+        "file": "/audio/singles/songs_1768195559606_01 - Tate McRae - all my friends are fake.mp3",
+        "duration": "3:05",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "bad ones",
+        "file": "/audio/singles/songs_1768195361329_01 - Tate McRae - bad ones.mp3",
+        "duration": "3:03",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "don't be sad",
+        "file": "/audio/singles/songs_1768195304363_01 - Tate McRae - don't be sad.mp3",
+        "duration": "2:23",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "Just Keep Watching (From F1® The Movie)",
+        "file": "/audio/singles/songs_1768195682197_01. Tate McRae - Just Keep Watching (From F1® The Movie).flac",
+        "duration": "2:22",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "lie to me",
+        "file": "/audio/singles/songs_1768195565760_01 - Tate McRae - lie to me.mp3",
+        "duration": "2:57",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "r u ok",
+        "file": "/audio/singles/songs_1768195306166_01 - Tate McRae - r u ok.mp3",
+        "duration": "3:05",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "rubberband",
+        "file": "/audio/singles/songs_1768195367164_01 - Tate McRae - rubberband.mp3",
+        "duration": "2:27",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "slower",
+        "file": "/audio/singles/songs_1768195575088_01 - Tate McRae - slower 2.mp3",
+        "duration": "3:07",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "slower",
+        "file": "/audio/singles/songs_1768195575088_01 - Tate McRae - slower.mp3",
+        "duration": "3:07",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "stupid",
+        "file": "/audio/singles/songs_1768195308447_01 - Tate McRae - stupid.mp3",
+        "duration": "2:52",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "tear myself apart",
+        "file": "/audio/singles/songs_1768195563857_01 - Tate McRae - tear myself apart.mp3",
+        "duration": "2:48",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "vicious",
+        "file": "/audio/singles/songs_1768195561495_01 - Tate McRae - vicious.mp3",
+        "duration": "3:02",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "You",
+        "file": "/audio/singles/songs_1768195557275_01 - Regard - You.mp3",
+        "duration": "3:53",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "you broke me first",
+        "file": "/audio/singles/songs_1768195310236_01 - Tate McRae - you broke me first.mp3",
+        "duration": "2:49",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "greedy",
+        "file": "/audio/singles/songs_1768196114110_02 - Tate McRae - greedy.mp3",
+        "duration": "2:09",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 2
+      },
+      {
+        "title": "wish i loved you in the 90s",
+        "file": "/audio/singles/songs_1768195365070_06 - Tate McRae - wish i loved you in the 90s.mp3",
+        "duration": "2:56",
+        "cover": "/covers/singles.jpg",
+        "trackNumber": 6
+      }
+    ],
+    "so-close-to-what": [
+      {
+        "title": "2 hands",
+        "file": "/audio/so-close-to-what/songs_1768195359119_Tate McRae - 2 hands.mp3",
+        "duration": "3:01",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "It's ok I'm ok",
+        "file": "/audio/so-close-to-what/songs_1768195441663_01 - Tate McRae - It's ok I'm ok.mp3",
+        "duration": "2:36",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "TIT FOR TAT",
+        "file": "/audio/so-close-to-what/songs_1768195527148_01. Tate McRae - TIT FOR TAT.mp3",
+        "duration": "2:55",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "TRYING ON SHOES",
+        "file": "/audio/so-close-to-what/songs_1768195518860_01. Tate McRae - TRYING ON SHOES.flac",
+        "duration": "3:02",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "ANYTHING BUT LOVE",
+        "file": "/audio/so-close-to-what/songs_1768195524685_02. Tate McRae - ANYTHING BUT LOVE.flac",
+        "duration": "2:27",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 2
+      },
+      {
+        "title": "NOBODY'S GIRL",
+        "file": "/audio/so-close-to-what/songs_1768195521433_03. Tate McRae - NOBODY'S GIRL.flac",
+        "duration": "2:48",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 3
+      },
+      {
+        "title": "Revolving door",
+        "file": "/audio/so-close-to-what/songs_1768195373076_03. Tate McRae - Revolving door.flac",
+        "duration": "3:00",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 3
+      },
+      {
+        "title": "bloodonmyhands",
+        "file": "/audio/so-close-to-what/songs_1768195620012_04. Tate McRae, Flo Milli - bloodonmyhands.flac",
+        "duration": "2:42",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 4
+      },
+      {
+        "title": "HORSESHOE",
+        "file": "/audio/so-close-to-what/songs_1768195515975_04. Tate McRae - HORSESHOE.flac",
+        "duration": "3:01",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 4
+      },
+      {
+        "title": "Dear god",
+        "file": "/audio/so-close-to-what/songs_1768195390271_05. Tate McRae - Dear god.mp3",
+        "duration": "2:51",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 5
+      },
+      {
+        "title": "Miss possessive",
+        "file": "/audio/so-close-to-what/songs_1768196178086_06. Tate McRae - Miss possessive.mp3",
+        "duration": "2:19",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 6
+      },
+      {
+        "title": "Sports car",
+        "file": "/audio/so-close-to-what/songs_1768195502367_07. Tate McRae - Sports car.flac",
+        "duration": "2:45",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 7
+      },
+      {
+        "title": "Signs",
+        "file": "/audio/so-close-to-what/songs_1768195377939_08. Tate McRae - Signs.flac",
+        "duration": "2:53",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 8
+      },
+      {
+        "title": "I know love",
+        "file": "/audio/so-close-to-what/songs_1768195657834_09. Tate McRae, The Kid LAROI - I know love.flac",
+        "duration": "2:36",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 9
+      },
+      {
+        "title": "Like I do",
+        "file": "/audio/so-close-to-what/songs_1768195578955_10. Tate McRae - Like I do.mp3",
+        "duration": "3:02",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 10
+      },
+      {
+        "title": "Purple lace bra",
+        "file": "/audio/so-close-to-what/songs_1768196173249_10. Tate McRae - Purple lace bra.mp3",
+        "duration": "3:11",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 10
+      },
+      {
+        "title": "No I'm not in love",
+        "file": "/audio/so-close-to-what/songs_1768195580981_12. Tate McRae - No I'm not in love.mp3",
+        "duration": "2:50",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 12
+      },
+      {
+        "title": "Greenlight",
+        "file": "/audio/so-close-to-what/songs_1768195504996_14. Tate McRae - Greenlight.flac",
+        "duration": "2:45",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 14
+      },
+      {
+        "title": "Nostalgia",
+        "file": "/audio/so-close-to-what/songs_1768195577032_15. Tate McRae - Nostalgia.mp3",
+        "duration": "3:03",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 15
+      },
+      {
+        "title": "Means I care",
+        "file": "/audio/so-close-to-what/songs_1768196164409_17. Tate McRae - Means I care.mp3",
+        "duration": "2:55",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 17
+      },
+      {
+        "title": "Siren sounds (bonus)",
+        "file": "/audio/so-close-to-what/songs_1768196168265_20. Tate McRae - Siren sounds (bonus).mp3",
+        "duration": "3:03",
+        "cover": "/covers/so-close-to-what.jpg",
+        "trackNumber": 20
+      }
+    ],
+    "think-later": [
+      {
+        "title": "cut my hair",
+        "file": "/audio/think-later/songs_1768195588535_01 - Tate McRae - cut my hair.mp3",
+        "duration": "2:55",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 1
+      },
+      {
+        "title": "greedy",
+        "file": "/audio/think-later/songs_1768196114110_02 - Tate McRae - greedy.mp3",
+        "duration": "2:09",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 2
+      },
+      {
+        "title": "run for the hills",
+        "file": "/audio/think-later/songs_1768195443624_03 - Tate McRae - run for the hills.mp3",
+        "duration": "2:23",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 3
+      },
+      {
+        "title": "hurt my feelings",
+        "file": "/audio/think-later/songs_1768195584686_04 - Tate McRae - hurt my feelings.mp3",
+        "duration": "2:02",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 4
+      },
+      {
+        "title": "grave",
+        "file": "/audio/think-later/songs_1768196078265_05 - Tate McRae - grave 2.mp3",
+        "duration": "3:13",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 5
+      },
+      {
+        "title": "grave",
+        "file": "/audio/think-later/songs_1768196078265_05 - Tate McRae - grave.mp3",
+        "duration": "3:13",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 5
+      },
+      {
+        "title": "exes",
+        "file": "/audio/think-later/songs_1768196110784_07 - Tate McRae - exes.mp3",
+        "duration": "2:39",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 7
+      },
+      {
+        "title": "we're not alike",
+        "file": "/audio/think-later/songs_1768195299754_08 - Tate McRae - we're not alike.mp3",
+        "duration": "3:00",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 8
+      },
+      {
+        "title": "calgary",
+        "file": "/audio/think-later/songs_1768195590327_09 - Tate McRae - calgary.mp3",
+        "duration": "2:20",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 9
+      },
+      {
+        "title": "messier",
+        "file": "/audio/think-later/songs_1768196071753_10 - Tate McRae - messier.mp3",
+        "duration": "3:57",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 10
+      },
+      {
+        "title": "think later",
+        "file": "/audio/think-later/songs_1768195293275_11 - Tate McRae - think later.mp3",
+        "duration": "2:13",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 11
+      },
+      {
+        "title": "guilty conscience",
+        "file": "/audio/think-later/songs_1768195302136_12 - Tate McRae - guilty conscience.mp3",
+        "duration": "2:32",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 12
+      },
+      {
+        "title": "want that too",
+        "file": "/audio/think-later/songs_1768195586406_13 - Tate McRae - want that too.mp3",
+        "duration": "3:10",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 13
+      },
+      {
+        "title": "plastic palm trees",
+        "file": "/audio/think-later/songs_1768195582746_14 - Tate McRae - plastic palm trees.mp3",
+        "duration": "2:52",
+        "cover": "/covers/think-later.jpg",
+        "trackNumber": 14
+      }
+    ]
+  },
+  "generatedAt": "2026-03-02T20:57:55.863Z"
+}
