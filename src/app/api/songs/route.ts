@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
-import { parseFile } from 'music-metadata';
-import { readdir } from 'fs/promises';
+import { parseBuffer } from 'music-metadata';
+import { readdir, readFile } from 'fs/promises';
 import path from 'path';
 
 export async function GET(request: Request) {
@@ -21,7 +21,11 @@ export async function GET(request: Request) {
         const filePath = path.join(audioDir, file);
         
         try {
-          const metadata = await parseFile(filePath);
+          const fileBuffer = await readFile(filePath);
+          const metadata = await parseBuffer(fileBuffer, {
+            mimeType: 'audio/mpeg',
+            path: filePath,
+          });
           
           // Format duration as M:SS or MM:SS
           const duration = metadata.format.duration || 0;
