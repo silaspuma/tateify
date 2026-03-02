@@ -12,6 +12,12 @@ const horizon = localFont({
 export const metadata: Metadata = {
   title: 'TATEIFY',
   description: 'Stream every song.',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'TATEIFY',
+  },
 };
 
 export default function RootLayout({
@@ -23,6 +29,8 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="preload" href="/loader.gif" as="image" type="image/gif" />
+        <link rel="apple-touch-icon" href="/appicon.png" />
+        <meta name="theme-color" content="#f19e31" />
       </head>
       <body className={horizon.className}>
         <PlayerProvider>

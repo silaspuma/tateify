@@ -1,0 +1,17 @@
+{
+  "name": "TATEIFY",
+  "short_name": "TATEIFY",
+  "description": "Stream every Tate McRae song.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#f19e31",
+  "icons": [
+    {
+      "src": "/appicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
