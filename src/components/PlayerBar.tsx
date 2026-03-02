@@ -5,12 +5,12 @@ import { usePlayer } from '@/context/PlayerContext';
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
 
 interface PlayerBarProps {
-  albumTheme?: 'default' | 'so-close' | 'i-used';
+  albumTheme?: 'default' | 'so-close' | 'think-later';
 }
 
 const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
   const isSoCloseToWhatTheme = albumTheme === 'so-close';
-  const isIUsedTheme = albumTheme === 'i-used';
+  const isThinkLaterTheme = albumTheme === 'think-later';
   const isDarkTheme = albumTheme !== 'default';
 
   const {
@@ -57,7 +57,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
       className={
         isSoCloseToWhatTheme
           ? 'fixed bottom-0 left-0 right-0 bg-black/65 backdrop-blur-2xl border-t border-white/10 px-6 py-4 shadow-2xl'
-          : isIUsedTheme
+          : isThinkLaterTheme
             ? 'fixed bottom-0 left-0 right-0 bg-black/60 backdrop-blur-2xl border-t border-accent/30 px-6 py-4 shadow-2xl'
           : 'fixed bottom-0 left-0 right-0 bg-black/30 backdrop-blur-2xl border-t border-black/20 px-6 py-4 shadow-2xl'
       }
@@ -139,7 +139,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
               className={
                 isSoCloseToWhatTheme
                   ? 'flex-1 h-2 bg-white/25 rounded-full cursor-pointer group relative overflow-hidden'
-                  : isIUsedTheme
+                  : isThinkLaterTheme
                     ? 'flex-1 h-2 bg-white/30 rounded-full cursor-pointer group relative overflow-hidden'
                   : 'flex-1 h-2 bg-white/20 rounded-full cursor-pointer group relative overflow-hidden'
               }

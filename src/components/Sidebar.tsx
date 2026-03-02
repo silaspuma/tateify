@@ -8,7 +8,7 @@ interface SidebarProps {
   onSelectAlbum: (albumId: string) => void;
   activeView: 'recently-played' | 'album';
   onSelectRecentlyPlayed: () => void;
-  albumTheme?: 'default' | 'so-close' | 'i-used';
+  albumTheme?: 'default' | 'so-close' | 'think-later';
   isDarkTheme?: boolean;
 }
 
@@ -21,7 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   isDarkTheme = false,
 }) => {
   const isSoCloseToWhatTheme = albumTheme === 'so-close';
-  const isIUsedTheme = albumTheme === 'i-used';
+  const isThinkLaterTheme = albumTheme === 'think-later';
 
   return (
     <div
@@ -55,12 +55,12 @@ const Sidebar: React.FC<SidebarProps> = ({
                   activeView === 'album' && selectedAlbumId === album.id
                     ? isSoCloseToWhatTheme
                       ? 'bg-white/12 text-white'
-                      : isIUsedTheme
+                      : isThinkLaterTheme
                         ? 'bg-accent/20 text-white'
                       : 'bg-accent/20 text-text'
                     : isSoCloseToWhatTheme
                       ? 'hover:bg-white/8 text-white/75'
-                      : isIUsedTheme
+                      : isThinkLaterTheme
                         ? 'hover:bg-white/10 text-white/80'
                       : 'hover:bg-white/10 text-text/80'
                 }

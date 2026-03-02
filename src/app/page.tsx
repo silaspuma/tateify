@@ -21,11 +21,11 @@ export default function Home() {
   const albumTheme =
     selectedAlbum.id === 'so-close-to-what'
       ? 'so-close'
-      : selectedAlbum.id === 'i-used-to-think-i-could-fly'
-        ? 'i-used'
+      : selectedAlbum.id === 'think-later'
+        ? 'think-later'
         : 'default';
   const isSoCloseToWhatTheme = albumTheme === 'so-close';
-  const isIUsedTheme = albumTheme === 'i-used';
+  const isThinkLaterTheme = albumTheme === 'think-later';
   const isDarkTheme = albumTheme !== 'default';
 
   useEffect(() => {
@@ -105,7 +105,7 @@ export default function Home() {
             className={
               isSoCloseToWhatTheme
                 ? 'absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black'
-                : isIUsedTheme
+                : isThinkLaterTheme
                   ? 'absolute inset-0 bg-gradient-to-b from-black via-accent/10 to-black'
                 : 'absolute inset-0 bg-gradient-to-b from-accent/10 via-background to-background'
             }
@@ -116,9 +116,9 @@ export default function Home() {
             style={{
               backgroundImage: `url(${selectedAlbum.cover})`,
               backgroundSize: 'cover',
-              backgroundPosition: isIUsedTheme ? 'center 28%' : isSoCloseToWhatTheme ? 'center 18%' : 'center',
-              opacity: isIUsedTheme ? 0.62 : isSoCloseToWhatTheme ? 0.4 : 0.34,
-              filter: isIUsedTheme ? 'saturate(1.25) contrast(1.08)' : 'saturate(1.06)',
+              backgroundPosition: isThinkLaterTheme ? 'center 28%' : isSoCloseToWhatTheme ? 'center 18%' : 'center',
+              opacity: isThinkLaterTheme ? 0.62 : isSoCloseToWhatTheme ? 0.4 : 0.34,
+              filter: isThinkLaterTheme ? 'saturate(1.25) contrast(1.08)' : 'saturate(1.06)',
             }}
           />
 

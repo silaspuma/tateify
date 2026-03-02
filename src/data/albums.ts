@@ -15,6 +15,12 @@ export interface Album {
 // Album configuration - songs will be loaded dynamically from MP3 files
 export const albums: Album[] = [
   {
+    id: 'all-songs',
+    name: 'All Songs',
+    cover: '/covers/all-songs.png',
+    folder: 'all-songs',
+  },
+  {
     id: 'so-close-to-what',
     name: 'so close to what???',
     cover: '/covers/so-close-to-what.jpg',

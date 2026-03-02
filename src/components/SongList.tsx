@@ -1,18 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Album, Song } from '@/data/albums';
+import { Album, Song, albums } from '@/data/albums';
 import { usePlayer } from '@/context/PlayerContext';
 import { Play, Pause, Clock } from 'lucide-react';
 
 interface SongListProps {
   album: Album;
-  albumTheme?: 'default' | 'so-close' | 'i-used';
+  albumTheme?: 'default' | 'so-close' | 'think-later';
 }
 
 const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) => {
   const isSoCloseToWhatTheme = albumTheme === 'so-close';
-  const isIUsedTheme = albumTheme === 'i-used';
+  const isThinkLaterTheme = albumTheme === 'think-later';
   const isDarkTheme = albumTheme !== 'default';
   const { playSong, currentSong, isPlaying, togglePlayPause } = usePlayer();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -23,9 +23,25 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
     const fetchSongs = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`/api/songs?folder=${album.folder}`);
-        const data = await response.json();
-        setSongs(data.songs || []);
+        if (album.id === 'all-songs') {
+          const sourceAlbums = albums.filter((item) => item.id !== 'all-songs');
+          const responses = await Promise.all(
+            sourceAlbums.map((sourceAlbum) => fetch(`/api/songs?folder=${sourceAlbum.folder}`))
+          );
+
+          const songsByAlbum = await Promise.all(
+            responses.map(async (response) => {
+              const data = await response.json();
+              return data.songs || [];
+            })
+          );
+
+          setSongs(songsByAlbum.flat());
+        } else {
+          const response = await fetch(`/api/songs?folder=${album.folder}`);
+          const data = await response.json();
+          setSongs(data.songs || []);
+        }
       } catch (error) {
         console.error('Error fetching songs:', error);
         setSongs([]);
@@ -72,7 +88,7 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
         className={
           isSoCloseToWhatTheme
             ? 'flex items-end gap-8 p-10 pb-8 bg-gradient-to-b from-black/70 via-black/30 to-transparent'
-            : isIUsedTheme
+            : isThinkLaterTheme
               ? 'flex items-end gap-8 p-10 pb-8 bg-gradient-to-b from-black/40 via-accent/15 to-transparent'
             : 'flex items-end gap-8 p-10 pb-8 bg-gradient-to-b from-accent/20 to-transparent'
         }
@@ -80,20 +96,14 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
         <img
           src={album.cover}
           alt={album.name}
-          className={
-            isSoCloseToWhatTheme
-              ? 'w-64 h-64 rounded-2xl shadow-2xl object-cover flex-shrink-0 ring-1 ring-white/20'
-              : isIUsedTheme
-                ? 'w-64 h-64 rounded-2xl shadow-2xl object-cover flex-shrink-0 ring-1 ring-accent/50'
-              : 'w-64 h-64 rounded-2xl shadow-2xl object-cover flex-shrink-0'
-          }
+          className="w-64 h-64 rounded-2xl shadow-2xl object-cover flex-shrink-0 ring-1 ring-accent/50"
         />
         <div className="flex flex-col justify-end pb-2">
           <p
             className={
               isSoCloseToWhatTheme
                 ? 'text-sm font-bold uppercase tracking-[0.2em] mb-3 text-white/75'
-                : isIUsedTheme
+                : isThinkLaterTheme
                   ? 'text-sm font-bold uppercase tracking-[0.2em] mb-3 text-white/80'
                 : 'text-sm font-bold uppercase tracking-wider mb-3'
             }
@@ -119,7 +129,7 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
           className={
             isSoCloseToWhatTheme
               ? 'w-20 h-20 rounded-full bg-accent hover:bg-accent-light hover:scale-105 flex items-center justify-center shadow-2xl group ring-1 ring-white/20'
-              : isIUsedTheme
+              : isThinkLaterTheme
                 ? 'w-20 h-20 rounded-full bg-accent-light hover:bg-accent hover:scale-105 flex items-center justify-center shadow-2xl group ring-1 ring-accent/40'
               : 'w-20 h-20 rounded-full bg-accent hover:bg-accent-light hover:scale-105 flex items-center justify-center shadow-2xl group'
           }
@@ -135,7 +145,7 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
           className={
             isSoCloseToWhatTheme
               ? 'grid grid-cols-[48px_1fr_120px] gap-4 px-6 py-3 text-sm font-medium text-white/60 border-b border-white/15 sticky top-0 bg-black/50 backdrop-blur-sm'
-              : isIUsedTheme
+              : isThinkLaterTheme
                 ? 'grid grid-cols-[48px_1fr_120px] gap-4 px-6 py-3 text-sm font-medium text-white/65 border-b border-white/20 sticky top-0 bg-black/45 backdrop-blur-sm'
               : 'grid grid-cols-[48px_1fr_120px] gap-4 px-6 py-3 text-sm font-medium text-text/50 border-b border-text/10 sticky top-0 bg-background/80 backdrop-blur-sm'
           }
@@ -161,12 +171,12 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
                   isCurrentSong(song)
                     ? isSoCloseToWhatTheme
                       ? 'bg-white/12'
-                      : isIUsedTheme
+                      : isThinkLaterTheme
                         ? 'bg-accent/20'
                       : 'bg-white/20'
                     : isSoCloseToWhatTheme
                       ? 'hover:bg-white/8'
-                      : isIUsedTheme
+                      : isThinkLaterTheme
                         ? 'hover:bg-white/10'
                       : 'hover:bg-white/10'
                 }

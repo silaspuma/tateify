@@ -5,7 +5,7 @@ import { usePlayer } from '@/context/PlayerContext';
 import { Clock3, Play, Pause } from 'lucide-react';
 
 interface RecentlyPlayedProps {
-  albumTheme?: 'default' | 'so-close' | 'i-used';
+  albumTheme?: 'default' | 'so-close' | 'think-later';
 }
 
 const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ albumTheme = 'default' }) => {
