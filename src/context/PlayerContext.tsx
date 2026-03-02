@@ -49,31 +49,67 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  const setMediaSessionActionHandler = (
+    action: MediaSessionAction,
+    handler: MediaSessionActionHandler | null
+  ) => {
+    try {
+      navigator.mediaSession.setActionHandler(action, handler);
+    } catch {
+      // Ignore unsupported actions.
+    }
+  };
+
   // Update Media Session API
   useEffect(() => {
     if ('mediaSession' in navigator && currentSong && currentAlbum) {
+      const isIOS =
+        /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
       navigator.mediaSession.metadata = new MediaMetadata({
         title: currentSong.title,
+        artist: 'Tate McRae',
         album: currentAlbum.name,
         artwork: [
           { src: currentSong.cover, sizes: '512x512', type: 'image/jpeg' },
         ],
       });
 
-      navigator.mediaSession.setActionHandler('play', () => {
+      setMediaSessionActionHandler('play', () => {
         audioRef.current?.play();
         setIsPlaying(true);
       });
 
-      navigator.mediaSession.setActionHandler('pause', () => {
+      setMediaSessionActionHandler('pause', () => {
         audioRef.current?.pause();
         setIsPlaying(false);
       });
 
-      navigator.mediaSession.setActionHandler('nexttrack', playNext);
-      navigator.mediaSession.setActionHandler('previoustrack', playPrevious);
+      setMediaSessionActionHandler('nexttrack', playNext);
+      setMediaSessionActionHandler('previoustrack', playPrevious);
+
+      if (isIOS) {
+        setMediaSessionActionHandler('seekforward', playNext);
+        setMediaSessionActionHandler('seekbackward', playPrevious);
+      } else {
+        setMediaSessionActionHandler('seekforward', null);
+        setMediaSessionActionHandler('seekbackward', null);
+      }
+
+      setMediaSessionActionHandler('seekto', null);
     }
   }, [currentSong, currentAlbum]);
+
+  useEffect(() => {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.playbackState = currentSong
+        ? isPlaying
+          ? 'playing'
+          : 'paused'
+        : 'none';
+    }
+  }, [currentSong, isPlaying]);
 
   // Update audio time
   useEffect(() => {

@@ -40,13 +40,13 @@ export default function Home() {
     <main
       className={
         isDarkTheme
-          ? 'h-screen flex flex-col overflow-hidden bg-black text-white'
-          : 'h-screen flex flex-col overflow-hidden'
+          ? 'min-h-screen flex flex-col bg-black text-white pb-64 lg:pb-36'
+          : 'min-h-screen flex flex-col pb-64 lg:pb-36'
       }
     >
       <Loader isLoading={isLoading} />
 
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1">
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -96,7 +96,7 @@ export default function Home() {
         )}
 
         {/* Main Content */}
-        <div className="flex-1 overflow-hidden relative">
+        <div className="flex-1 relative">
           {/* Base album mood gradient (applies to all pages) */}
           <div className="absolute inset-0 bg-gradient-to-b from-accent/22 via-accent/10 to-background/55" />
 
@@ -144,7 +144,7 @@ export default function Home() {
             />
           )}
 
-          <div className="relative z-10 h-full overflow-y-auto">
+          <div className="relative z-10">
             {activeView === 'recently-played' ? (
               <RecentlyPlayed albumTheme={albumTheme} />
             ) : (

@@ -56,15 +56,15 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
     <div
       className={
         isSoCloseToWhatTheme
-          ? 'fixed bottom-0 left-0 right-0 bg-black/65 backdrop-blur-2xl border-t border-white/10 px-6 py-4 shadow-2xl'
+          ? 'fixed bottom-0 left-0 right-0 z-50 bg-black/65 backdrop-blur-2xl border-t border-white/10 px-4 py-3 lg:px-6 lg:py-4 shadow-2xl'
           : isThinkLaterTheme
-            ? 'fixed bottom-0 left-0 right-0 bg-black/60 backdrop-blur-2xl border-t border-accent/30 px-6 py-4 shadow-2xl'
-          : 'fixed bottom-0 left-0 right-0 bg-black/30 backdrop-blur-2xl border-t border-black/20 px-6 py-4 shadow-2xl'
+            ? 'fixed bottom-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-2xl border-t border-accent/30 px-4 py-3 lg:px-6 lg:py-4 shadow-2xl'
+          : 'fixed bottom-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-2xl border-t border-black/20 px-4 py-3 lg:px-6 lg:py-4 shadow-2xl'
       }
     >
-      <div className="flex items-center justify-between gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(440px,2fr)_minmax(0,1fr)] items-center gap-4">
         {/* Left: Song Info */}
-        <div className="flex items-center gap-4 w-1/4 min-w-[280px]">
+        <div className="flex items-center gap-4 min-w-0 lg:min-w-[260px]">
           <img
             src={currentSong.cover}
             alt={currentSong.title}
@@ -85,7 +85,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
         </div>
 
         {/* Center: Player Controls */}
-        <div className="flex flex-col items-center w-2/4 max-w-3xl">
+        <div className="flex flex-col items-center w-full max-w-3xl justify-self-center">
           {/* Buttons */}
           <div className="flex items-center gap-6 mb-3">
             <button
@@ -158,7 +158,7 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
         </div>
 
         {/* Right: Volume Control */}
-        <div className="flex items-center justify-end gap-3 w-1/4 min-w-[200px]">
+        <div className="flex items-center justify-end gap-3 lg:min-w-[180px] justify-self-end">
           {volume === 0 ? (
             <VolumeX size={24} className={isDarkTheme ? 'text-white/70' : 'text-text/70'} />
           ) : (

@@ -14,7 +14,7 @@ const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ albumTheme = 'default' 
   const { recentSongs, currentSong, isPlaying, playSong, togglePlayPause } = usePlayer();
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col">
       <div className={isDarkTheme ? 'p-10 pb-6 bg-gradient-to-b from-black/60 via-accent/10 to-transparent' : 'p-10 pb-6 bg-gradient-to-b from-accent/20 to-transparent'}>
         <div className={isDarkTheme ? 'flex items-center gap-3 text-white/80 mb-4' : 'flex items-center gap-3 text-text/80 mb-4'}>
           <Clock3 size={24} strokeWidth={2} />
@@ -23,7 +23,7 @@ const RecentlyPlayed: React.FC<RecentlyPlayedProps> = ({ albumTheme = 'default' 
         <h1 className={isDarkTheme ? 'text-6xl font-black leading-none text-white' : 'text-6xl font-black leading-none'}>Recently Played</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-10 pb-32">
+      <div className="px-10 pb-8">
         {recentSongs.length === 0 ? (
           <div className={isDarkTheme ? 'h-full flex items-center justify-center text-white/60 text-xl font-medium' : 'h-full flex items-center justify-center text-text/60 text-xl font-medium'}>
             Play a song to see it here.

@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Album, Song, albums } from '@/data/albums';
+import { Album, Song } from '@/data/albums';
 import { usePlayer } from '@/context/PlayerContext';
-import { Play, Pause, Clock } from 'lucide-react';
+import { Play, Pause, Clock, Shuffle } from 'lucide-react';
 
 interface SongListProps {
   album: Album;
@@ -24,19 +24,9 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
       setLoading(true);
       try {
         if (album.id === 'all-songs') {
-          const sourceAlbums = albums.filter((item) => item.id !== 'all-songs');
-          const responses = await Promise.all(
-            sourceAlbums.map((sourceAlbum) => fetch(`/api/songs?folder=${sourceAlbum.folder}`))
-          );
-
-          const songsByAlbum = await Promise.all(
-            responses.map(async (response) => {
-              const data = await response.json();
-              return data.songs || [];
-            })
-          );
-
-          setSongs(songsByAlbum.flat());
+          const response = await fetch('/api/songs');
+          const data = await response.json();
+          setSongs(data.songs || []);
         } else {
           const response = await fetch(`/api/songs?folder=${album.folder}`);
           const data = await response.json();
@@ -51,7 +41,7 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
     };
 
     fetchSongs();
-  }, [album.folder]);
+  }, [album.id, album.folder]);
 
   const handleSongClick = (song: Song, index: number) => {
     if (currentSong?.file === song.file) {
@@ -65,6 +55,20 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
     if (songs.length > 0) {
       playSong(songs[0], album, songs, 0);
     }
+  };
+
+  const handleShuffleAll = () => {
+    if (songs.length === 0) {
+      return;
+    }
+
+    const shuffledSongs = [...songs];
+    for (let i = shuffledSongs.length - 1; i > 0; i -= 1) {
+      const randomIndex = Math.floor(Math.random() * (i + 1));
+      [shuffledSongs[i], shuffledSongs[randomIndex]] = [shuffledSongs[randomIndex], shuffledSongs[i]];
+    }
+
+    playSong(shuffledSongs[0], album, shuffledSongs, 0);
   };
 
   const isCurrentSong = (song: Song) => currentSong?.file === song.file;
@@ -82,7 +86,7 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex flex-col">
       {/* Album Header */}
       <div
         className={
@@ -136,10 +140,26 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
         >
           <Play size={36} fill="white" className="text-white ml-1" strokeWidth={0} />
         </button>
+
+        {album.id === 'all-songs' && (
+          <button
+            onClick={handleShuffleAll}
+            className={
+              isSoCloseToWhatTheme
+                ? 'ml-4 h-14 px-6 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center gap-2 font-semibold transition-colors'
+                : isThinkLaterTheme
+                  ? 'ml-4 h-14 px-6 rounded-full bg-white/12 hover:bg-white/22 text-white flex items-center gap-2 font-semibold transition-colors'
+                : 'ml-4 h-14 px-6 rounded-full bg-black/10 hover:bg-black/20 text-text flex items-center gap-2 font-semibold transition-colors'
+            }
+          >
+            <Shuffle size={18} />
+            Shuffle All
+          </button>
+        )}
       </div>
 
       {/* Song List */}
-      <div className="flex-1 overflow-y-auto px-10 pb-32">
+      <div className="px-10 pb-8">
         {/* Header */}
         <div
           className={
