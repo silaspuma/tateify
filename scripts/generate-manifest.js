@@ -3,6 +3,8 @@ const path = require('path');
 const { parseBuffer } = require('music-metadata');
 
 const COVER_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp'];
+// Folders that contain individual singles/EPs — use embedded artwork per track
+const SINGLE_FOLDERS = new Set(['singles']);
 const PREFERRED_ALBUMS = [
   { folder: 'so-close-to-what', name: 'so close to what???' },
   { folder: 'think-later', name: 'think later' },
@@ -39,10 +41,16 @@ const resolveCoverPath = async (albumFolder) => {
 const getSongsFromFolder = async (albumFolder) => {
   const audioDir = path.join(process.cwd(), 'public', 'audio', albumFolder);
   const files = await fs.readdir(audioDir);
-  const audioFiles = files.filter((file) => 
+  const audioFiles = files.filter((file) =>
     file.toLowerCase().endsWith('.mp3') || file.toLowerCase().endsWith('.flac')
   );
-  const cover = await resolveCoverPath(albumFolder);
+  const defaultCover = await resolveCoverPath(albumFolder);
+
+  // Ensure per-song cover output directory exists for single folders
+  if (SINGLE_FOLDERS.has(albumFolder)) {
+    const singlesCoversDir = path.join(process.cwd(), 'public', 'covers', albumFolder);
+    await fs.mkdir(singlesCoversDir, { recursive: true });
+  }
 
   const songs = await Promise.all(
     audioFiles.map(async (file) => {
@@ -62,6 +70,17 @@ const getSongsFromFolder = async (albumFolder) => {
 
         const title = metadata.common.title || formatTitleFromFile(file);
 
+        let cover = defaultCover;
+        if (SINGLE_FOLDERS.has(albumFolder) && metadata.common.picture && metadata.common.picture.length > 0) {
+          const pic = metadata.common.picture[0];
+          const ext = pic.format.includes('png') ? 'png' : 'jpg';
+          const safeName = file.replace(/\.[^.]+$/, '').replace(/[^\w\-]/g, '_');
+          const coverFileName = `${safeName}.${ext}`;
+          const coverFilePath = path.join(process.cwd(), 'public', 'covers', albumFolder, coverFileName);
+          await fs.writeFile(coverFilePath, pic.data);
+          cover = `/covers/${albumFolder}/${coverFileName}`;
+        }
+
         return {
           title,
           file: `/audio/${albumFolder}/${file}`,
@@ -75,7 +94,7 @@ const getSongsFromFolder = async (albumFolder) => {
           title: formatTitleFromFile(file),
           file: `/audio/${albumFolder}/${file}`,
           duration: '0:00',
-          cover,
+          cover: defaultCover,
           trackNumber: 0,
         };
       }

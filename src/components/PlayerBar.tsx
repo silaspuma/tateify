@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { usePlayer } from '@/context/PlayerContext';
 import { Play, Pause, SkipBack, SkipForward, Volume2, VolumeX } from 'lucide-react';
 
@@ -27,49 +27,6 @@ const PlayerBar: React.FC<PlayerBarProps> = ({ albumTheme = 'default' }) => {
   } = usePlayer();
 
   const progressBarRef = useRef<HTMLDivElement>(null);
-
-  // --- MEDIA SESSION API INTEGRATION ---
-  useEffect(() => {
-    if ('mediaSession' in navigator && currentSong) {
-      // Update Metadata
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: currentSong.title,
-        artist: 'Tate McRae',
-        album: albumTheme === 'so-close' ? 'i used to think i could fly' : 'THINK LATER',
-        artwork: [
-          { src: currentSong.cover, sizes: '512x512', type: 'image/png' },
-        ],
-      });
-
-      // Update Playback State
-      navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
-
-      // Set Action Handlers (This enables the Previous/Next buttons)
-      navigator.mediaSession.setActionHandler('play', togglePlayPause);
-      navigator.mediaSession.setActionHandler('pause', togglePlayPause);
-      navigator.mediaSession.setActionHandler('previoustrack', playPrevious);
-      navigator.mediaSession.setActionHandler('nexttrack', playNext);
-
-      // Optional: Handle seeking from the lock screen slider
-      navigator.mediaSession.setActionHandler('seekto', (details) => {
-        if (details.seekTime !== undefined) {
-          seekTo(details.seekTime);
-        }
-      });
-    }
-  }, [currentSong, isPlaying, playNext, playPrevious, togglePlayPause, seekTo, albumTheme]);
-
-  // Update position state for the lock screen progress bar
-  useEffect(() => {
-    if ('mediaSession' in navigator && 'setPositionState' in navigator.mediaSession && duration > 0) {
-      navigator.mediaSession.setPositionState({
-        duration: duration,
-        playbackRate: 1,
-        position: currentTime,
-      });
-    }
-  }, [currentTime, duration]);
-  // -------------------------------------
 
   const formatTime = (time: number): string => {
     if (isNaN(time)) return '0:00';
