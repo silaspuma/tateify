@@ -3,6 +3,10 @@
     "totalStreams": {
       ".read": true,
       ".write": true
+    },
+    "pushSubscriptions": {
+      ".read": false,
+      ".write": true
     }
   }
 }
