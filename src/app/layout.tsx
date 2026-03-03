@@ -3,6 +3,8 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { PlayerProvider } from '@/context/PlayerContext';
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
+import OfflineBanner from '@/components/OfflineBanner';
+import PWAInstallBanner from '@/components/PWAInstallBanner';
 
 const horizon = localFont({
   src: '../../horizon.ttf',
@@ -36,6 +38,8 @@ export default function RootLayout({
       <body className={horizon.className}>
         <PlayerProvider>
           <ServiceWorkerRegistration />
+          <OfflineBanner />
+          <PWAInstallBanner />
           {children}
         </PlayerProvider>
       </body>
