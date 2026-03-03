@@ -54,6 +54,20 @@ npm run build
 npm start
 ```
 
+## 5. Enable Offline Mode
+
+Offline playback works after the app has been opened online at least once.
+
+1. Open the app in the browser while connected to the internet.
+2. Wait 10-30 seconds on the home screen so songs/covers can cache.
+3. Optional (recommended): install the app to your home screen/dock from the browser install prompt.
+4. Turn off Wi-Fi/cellular and reopen the app.
+
+What works offline after cache is primed:
+- App shell and UI pages
+- Album/song lists
+- Cached cover art and audio files
+
 ## Troubleshooting
 
 ### Music not playing?

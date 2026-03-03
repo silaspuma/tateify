@@ -7,6 +7,7 @@ A modern, Spotify-inspired music streaming web application dedicated to Tate McR
 - **Automatic MP3 Metadata Reading**: Just drop MP3 files into album folders - the app automatically reads song titles, duration, and track numbers from the file metadata
 - **Spotify-Inspired Design**: Modern, clean interface with large album artwork, smooth animations, and intuitive controls
 - **iPad Optimized**: Designed specifically for iPad with larger touch targets, optimal spacing, and beautiful typography
+- **Offline-Ready Playback**: Caches app shell, catalog data, artwork, and audio files for offline listening after first online load
 - **Full Playback Controls**: Play, pause, next, previous, seek, and volume control
 - **Media Session API**: Hardware media key support and OS-level controls
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices

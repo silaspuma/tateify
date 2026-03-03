@@ -25,11 +25,11 @@ const SongList: React.FC<SongListProps> = ({ album, albumTheme = 'default' }) =>
       setLoading(true);
       try {
         if (album.id === 'all-songs') {
-          const response = await fetch('/api/songs', { cache: 'no-store' });
+          const response = await fetch('/api/songs');
           const data = await response.json();
           setSongs(data.songs || []);
         } else {
-          const response = await fetch(`/api/songs?folder=${album.folder}`, { cache: 'no-store' });
+          const response = await fetch(`/api/songs?folder=${album.folder}`);
           const data = await response.json();
           setSongs(data.songs || []);
         }
