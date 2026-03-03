@@ -154,6 +154,9 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     setCurrentIndex(index);
     setIsPlaying(true);
 
+    // Increment total streams counter
+    fetch('/api/streams', { method: 'POST' }).catch(console.error);
+
     setRecentSongs((previous) => {
       const deduped = previous.filter((item) => item.song.file !== song.file);
       return [{ song, album }, ...deduped].slice(0, 20);
