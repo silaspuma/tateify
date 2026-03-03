@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "totalStreams": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Album } from '@/data/albums';
+import TotalStreams from '@/components/TotalStreams';
 
 interface SidebarProps {
   selectedAlbumId: string;
@@ -107,6 +108,9 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
         )}
       </div>
+
+      {/* Total Streams Counter */}
+      <TotalStreams isDarkTheme={isDarkTheme} />
     </div>
   );
 };
