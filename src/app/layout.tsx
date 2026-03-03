@@ -5,6 +5,7 @@ import { PlayerProvider } from '@/context/PlayerContext';
 import ServiceWorkerRegistration from '@/components/ServiceWorkerRegistration';
 import OfflineBanner from '@/components/OfflineBanner';
 import PWAInstallBanner from '@/components/PWAInstallBanner';
+import NotificationPrompt from '@/components/NotificationPrompt';
 
 const horizon = localFont({
   src: '../../horizon.ttf',
@@ -40,6 +41,7 @@ export default function RootLayout({
           <ServiceWorkerRegistration />
           <OfflineBanner />
           <PWAInstallBanner />
+          <NotificationPrompt />
           {children}
         </PlayerProvider>
       </body>

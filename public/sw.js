@@ -133,6 +133,44 @@ const staleWhileRevalidate = async (request, cacheName) => {
   return Response.error();
 };
 
+self.addEventListener('push', (event) => {
+  let data = { title: 'TATEIFY', body: 'New update!', url: '/' };
+
+  if (event.data) {
+    try {
+      data = { ...data, ...JSON.parse(event.data.text()) };
+    } catch {
+      data.body = event.data.text();
+    }
+  }
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.body,
+      icon: '/appicon.png',
+      badge: '/appicon.png',
+      data: { url: data.url },
+    })
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const url = event.notification.data?.url || '/';
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url.includes(self.location.origin) && 'focus' in client) {
+          client.navigate(url);
+          return client.focus();
+        }
+      }
+      return self.clients.openWindow(url);
+    })
+  );
+});
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET' || !isSameOrigin(event.request.url)) {
     return;
