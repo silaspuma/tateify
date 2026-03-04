@@ -105,12 +105,11 @@ const Sidebar: React.FC<SidebarProps> = ({
               </span>
             </button>
           ))}
+          {/* Total Streams Counter — directly below the last album button */}
+          <TotalStreams isDarkTheme={isDarkTheme} />
         </div>
         )}
       </div>
-
-      {/* Total Streams Counter */}
-      <TotalStreams isDarkTheme={isDarkTheme} />
     </div>
   );
 };
