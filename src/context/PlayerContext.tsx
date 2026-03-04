@@ -134,7 +134,10 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => setDuration(audio.duration);
-    const handleEnded = () => playNext();
+    const handleEnded = () => {
+      fetch('/api/streams', { method: 'POST' }).catch(console.error);
+      playNext();
+    };
 
     audio.addEventListener('timeupdate', updateTime);
     audio.addEventListener('loadedmetadata', updateDuration);
@@ -153,9 +156,6 @@ export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
     setQueue(songQueue);
     setCurrentIndex(index);
     setIsPlaying(true);
-
-    // Increment total streams counter
-    fetch('/api/streams', { method: 'POST' }).catch(console.error);
 
     setRecentSongs((previous) => {
       const deduped = previous.filter((item) => item.song.file !== song.file);
